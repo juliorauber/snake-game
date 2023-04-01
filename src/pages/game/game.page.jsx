@@ -16,6 +16,7 @@ const GamePage = () => {
 
   const [gameStatus, setGameStatus] = useState(GAME_STATUS.INITIAL)
   const [snakeBody, setSnakeBody] = useState(snakeStartPosition)
+  const [moveTo, setMoveTo] = useState(null)
   const [fruitPosition, setFruitPosition] = useState(
     randomizeFruitPosition({
       blockedPositions: snakeStartPosition,
@@ -64,9 +65,11 @@ const GamePage = () => {
 
     if (isSnakeEating) {
       snakeEatFood({ onSnakeEat: setSnakeBody })
-      randomizeFruitPosition({
+      const newFruitPosition = randomizeFruitPosition({
         blockedPositions: snakeBody,
       })
+
+      setFruitPosition(newFruitPosition)
     }
   }, [snakeBody])
 
