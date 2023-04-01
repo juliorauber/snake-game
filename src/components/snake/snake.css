@@ -1,0 +1,23 @@
+.snake-body {
+  background-color: #008000;
+  position: absolute;
+  box-sizing: border-box;
+  border: 0.5px solid black;
+  border-radius: 50%;
+}
+
+.snake-body-eated {
+  background-color: #008000;
+  position: absolute;
+  box-sizing: border-box;
+  border: 0.5px solid black;
+  border-radius: 20%;
+}
+
+.snake-head {
+  background-color: #005c00;
+  position: absolute;
+  box-sizing: border-box;
+  border: 0.5px solid black;
+  border-radius: 50%;
+}

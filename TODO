@@ -1,0 +1,9 @@
+Arrumar BUG que a comidinha "nasce?" no mesmo lugar e ela fica comendo infinitamente
+Adicionar snake andar automatico (atuamelmente vai click por click)
+Ajustar MENUS de Inicio, Derrota, Vitória, etc...
+
+Remover GRID do Board depois
+Feature Toggle (Morrer ou não morrer quando encostar nas margens)
+Melhorar lógica componente Snake.getClassName
+Mudar CSS para SCSS
+Mudar REACT para TypeScript

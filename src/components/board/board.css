@@ -1,0 +1,9 @@
+.boards {
+  border: 1px solid black;
+  background-color: transparent;
+  position: relative;
+
+  background-size: 21px 21px;
+  background-image: linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+}
