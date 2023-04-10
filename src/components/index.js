@@ -1,3 +1,5 @@
 export * from './board/board'
 export * from './fruit/fruit'
 export * from './snake/snake'
+export * from './footer/footer'
+export * from './header/header'

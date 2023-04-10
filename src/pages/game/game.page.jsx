@@ -1,10 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Board, Snake, Fruit } from '../../components'
 import { GameStatus } from '../../components/modal/game_status'
 import { GAME_STATUS, MOVEMENTS, snakeStartPosition } from '../../constants'
 import { gameController } from '../../controller/game.controller'
 
 import './game.css'
+
+const speed = 250
+
+const useInterval = (callback, delay) => {
+  const savedCallback = useRef()
+
+  useEffect(() => {
+    savedCallback.current = callback
+  }, [callback])
+
+  useEffect(() => {
+    const tick = () => {
+      savedCallback.current()
+    }
+
+    if (delay !== null) {
+      let id = setInterval(tick, delay)
+      return () => clearInterval(id)
+    }
+  }, [delay])
+}
 
 const GamePage = () => {
   const {
@@ -16,7 +37,7 @@ const GamePage = () => {
 
   const [gameStatus, setGameStatus] = useState(GAME_STATUS.INITIAL)
   const [snakeBody, setSnakeBody] = useState(snakeStartPosition)
-  const [moveTo, setMoveTo] = useState(null)
+  const [direction, setDirection] = useState(null)
   const [fruitPosition, setFruitPosition] = useState(
     randomizeFruitPosition({
       blockedPositions: snakeStartPosition,
@@ -35,26 +56,25 @@ const GamePage = () => {
     setFruitPosition(newFruitPosition)
   }
 
+  useInterval(() => {
+    if (direction != null) {
+      moveSnake({
+        moveTo: direction,
+        onSnakeMove: setSnakeBody,
+        body: snakeBody,
+      })
+    }
+  }, speed)
+
+  const handleEventKeydown = ({ keyCode }) => {
+    if (MOVEMENTS[keyCode]) {
+      setDirection(MOVEMENTS[keyCode])
+    }
+  }
+
   useEffect(() => {
-    const handleEventKeydown = ({ keyCode }) => {
-      if (MOVEMENTS[keyCode]) {
-        if (gameStatus === GAME_STATUS.INITIAL) {
-          setGameStatus(GAME_STATUS.PLAYING)
-        }
-
-        moveSnake({
-          moveTo: MOVEMENTS[keyCode],
-          onSnakeMove: setSnakeBody,
-          body: snakeBody,
-        })
-      }
-    }
-
     window.addEventListener('keydown', handleEventKeydown)
-
-    return () => {
-      window.removeEventListener('keydown', handleEventKeydown)
-    }
+    return () => window.removeEventListener('keydown', handleEventKeydown)
   }, [snakeBody])
 
   useEffect(() => {
@@ -75,32 +95,27 @@ const GamePage = () => {
 
   return (
     <div className="main">
-      <div className="header">
-        <h1>Snake Game</h1>
-      </div>
-      <body>
-        <GameStatus
-          gameStatus={gameStatus}
-          onWin={initialGameState}
-          onLoss={() => {}}
-        />
-        {!!snakeBody ? (
-          <>
-            <h3>{snakeBody.length} Pontos</h3>
-            <Board>
-              <Snake body={snakeBody} />
-              {!!fruitPosition ? (
-                <Fruit
-                  positionX={fruitPosition?.x}
-                  positionY={fruitPosition?.y}
-                  onRandomizeFruit={setFruitPosition}
-                  blockedPositions={snakeBody}
-                />
-              ) : null}
-            </Board>
-          </>
-        ) : null}
-      </body>
+      {/* <GameStatus
+        gameStatus={gameStatus}
+        onWin={initialGameState}
+        onLoss={() => {}}
+      /> */}
+      {!!snakeBody ? (
+        <>
+          <h3>{snakeBody.length} Pontos</h3>
+          <Board>
+            <Snake body={snakeBody} />
+            {!!fruitPosition ? (
+              <Fruit
+                positionX={fruitPosition?.x}
+                positionY={fruitPosition?.y}
+                onRandomizeFruit={setFruitPosition}
+                blockedPositions={snakeBody}
+              />
+            ) : null}
+          </Board>
+        </>
+      ) : null}
     </div>
   )
 }
