@@ -1,0 +1,21 @@
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(48, 109, 109);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1;
+  width: 300px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal > .breaklike {
+  height: 2px;
+  width: 100%;
+  background-color: black;
+}

@@ -1,3 +1,3 @@
-const dieWhenOutOfBounds = false
+const dieWhenOutOfBounds = true
 
 export { dieWhenOutOfBounds }

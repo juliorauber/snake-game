@@ -14,11 +14,7 @@ const MOVEMENTS = {
 }
 
 const centeredSnake = Math.ceil(numberOfPixelsOnBoard / 2)
-const snakeStartPosition = [
-  { x: centeredSnake, y: centeredSnake },
-  { x: centeredSnake - 1, y: centeredSnake },
-  { x: centeredSnake - 2, y: centeredSnake },
-]
+const snakeStartPosition = [{ x: centeredSnake - 1, y: centeredSnake - 1 }]
 
 const GAME_STATUS = {
   INITIAL: 'INITIAL',

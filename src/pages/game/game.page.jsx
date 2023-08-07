@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Board, Snake, Fruit } from '../../components'
-import { GameStatus } from '../../components/modal/game_status'
 import { GAME_STATUS, MOVEMENTS, snakeStartPosition } from '../../constants'
 import { gameController } from '../../controller/game.controller'
 
 import './game.css'
+import { Modal } from '../../components/modal/modal'
 
 const speed = 250
 
@@ -95,14 +95,11 @@ const GamePage = () => {
 
   return (
     <div className="main">
-      {/* <GameStatus
-        gameStatus={gameStatus}
-        onWin={initialGameState}
-        onLoss={() => {}}
-      /> */}
+      <Modal></Modal>
+
       {!!snakeBody ? (
         <>
-          <h3>{snakeBody.length} Pontos</h3>
+          <h2>{snakeBody.length - 1} Pontos</h2>
           <Board>
             <Snake body={snakeBody} />
             {!!fruitPosition ? (
